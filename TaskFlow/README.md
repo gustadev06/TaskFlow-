@@ -16,6 +16,8 @@ Estudantes universitários, concurseiros e pessoas que precisam organizar cronog
 * **Adicionar Tarefas:** Registro rápido de metas de estudo.
 * **Listagem:** Visualização limpa e focada do que precisa ser feito.
 * **Conclusão/Remoção:** Sistema para riscar metas concluídas e limpar o fluxo de trabalho.
+* <img width="1880" height="992" alt="Captura de tela 2026-04-09 161603" src="https://github.com/user-attachments/assets/afc49505-b092-4a1b-8675-531453b16ceb" />
+
 
 ## 🛠️ Tecnologias Utilizadas
 * **Linguagem:** C# (.NET 10)
