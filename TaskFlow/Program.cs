@@ -58,8 +58,8 @@ class Program
             {
                 Console.Write("Digite a nova tarefa: ");
                 string novaTarefa = Console.ReadLine() ?? "";
-                
-                try 
+
+                try
                 {
                     gerenciador.Adicionar(novaTarefa);
                     Console.WriteLine("Tarefa adicionada com sucesso!");
@@ -87,7 +87,7 @@ class Program
                 {
                     Console.WriteLine($"{i + 1}. {lista[i]}");
                 }
-                
+
                 Console.Write("\nDigite o numero da tarefa concluida: ");
                 if (int.TryParse(Console.ReadLine(), out int numero))
                 {
@@ -107,7 +107,7 @@ class Program
                 rodando = false;
                 Console.WriteLine("Saindo... Bons estudos!");
             }
-            
+
             if (rodando)
             {
                 Console.WriteLine("\nPressione qualquer tecla para continuar...");
