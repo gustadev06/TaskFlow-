@@ -1,0 +1,14 @@
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\bin\Debug\net10.0\TaskFlow.exe
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\bin\Debug\net10.0\TaskFlow.deps.json
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\bin\Debug\net10.0\TaskFlow.runtimeconfig.json
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\bin\Debug\net10.0\TaskFlow.dll
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\bin\Debug\net10.0\TaskFlow.pdb
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\TaskFlow.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\TaskFlow.AssemblyInfoInputs.cache
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\TaskFlow.AssemblyInfo.cs
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\TaskFlow.csproj.CoreCompileInputs.cache
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\TaskFlow.dll
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\refint\TaskFlow.dll
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\TaskFlow.pdb
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\TaskFlow.genruntimeconfig.cache
+C:\Users\gusta\OneDrive\Documentos\taskflow\TaskFlow\obj\Debug\net10.0\ref\TaskFlow.dll

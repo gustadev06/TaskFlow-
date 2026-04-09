@@ -1,0 +1,29 @@
+name: CI TaskFlow
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-lint-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar o código do repositório
+      uses: actions/checkout@v4
+
+    - name: Configurar o .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Verificar Linting (Estilo do Código)
+      run: dotnet format TaskFlow/TaskFlow.csproj --verify-no-changes
+
+    - name: Compilar o Projeto
+      run: dotnet build TaskFlow/TaskFlow.csproj
+
+    - name: Executar Testes Automatizados
+      run: dotnet test TaskFlow.Tests/TaskFlow.Tests.csproj
