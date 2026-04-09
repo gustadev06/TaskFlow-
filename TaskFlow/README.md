@@ -16,11 +16,7 @@ Estudantes universitários, concurseiros e pessoas que precisam organizar cronog
 * **Adicionar Tarefas:** Registro rápido de metas de estudo.
 * **Listagem:** Visualização limpa e focada do que precisa ser feito.
 * **Conclusão/Remoção:** Sistema para riscar metas concluídas e limpar o fluxo de trabalho.
-* <img width="30" height="992" alt="projeto print 3 " src="https://github.com/user-attachments/assets/82153f75-cc07-4500-9f25-55e31e0ee475" />
-* <img width="30" height="992" alt="Captura de tela 2026-04-09 161603" src="https://github.com/user-attachments/assets/afc49505-b092-4a1b-8675-531453b16ceb" />
-<img width="30" height="988" alt="projeto print 2 " src="https://github.com/user-attachments/assets/b44c69ee-db97-4c71-b8c1-5172aaba2f67" />
-<img width="30" height="1000" alt="projeto print " src="https://github.com/user-attachments/assets/f1f37a58-147f-4d4b-9a24-1b958fb7cf42" />
-
+* <img width="70" height="992" alt="projeto print 3 " src="https://github.com/user-attachments/assets/82153f75-cc07-4500-9f25-55e31e0ee475" /> <img width="70" height="992" alt="Captura de tela 2026-04-09 161603" src="https://github.com/user-attachments/assets/afc49505-b092-4a1b-8675-531453b16ceb" /> <img width="70" height="988" alt="projeto print 2 " src="https://github.com/user-attachments/assets/b44c69ee-db97-4c71-b8c1-5172aaba2f67" /> <img width="70" height="1000" alt="projeto print " src="https://github.com/user-attachments/assets/f1f37a58-147f-4d4b-9a24-1b958fb7cf42" />
 
 ## 🛠️ Tecnologias Utilizadas
 * **Linguagem:** C# (.NET 10)
