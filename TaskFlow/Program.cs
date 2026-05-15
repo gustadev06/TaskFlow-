@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using TaskFlow.Services;
 
 namespace TaskFlow;
 
-// --- O CÉREBRO DO APLICATIVO (Testável) ---
+
 public class GerenciadorDeTarefas
 {
     private List<string> tarefas = new List<string>();
@@ -37,16 +39,22 @@ public class GerenciadorDeTarefas
 // --- A TELA DO APLICATIVO (O que o usuário vê) ---
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         GerenciadorDeTarefas gerenciador = new GerenciadorDeTarefas();
         bool rodando = true;
+
+        // Busca a frase do dia uma única vez, antes do menu começar
+        var quoteService = new QuoteService(new HttpClient());
+        var fraseDoDia = await quoteService.ObterFraseDoDiaAsync();
 
         while (rodando)
         {
             Console.Clear();
             Console.WriteLine("=== TaskFlow - Foco na Aprovação ===");
-            Console.WriteLine("1. Adicionar tarefa (Ex: ler regulamentação do SUS)");
+            Console.WriteLine($"\"{fraseDoDia.Texto}\"");
+            Console.WriteLine($"   - {fraseDoDia.Autor}\n");
+            Console.WriteLine("1. Adicionar tarefa (Ex: Banco de dados )");
             Console.WriteLine("2. Listar tarefas");
             Console.WriteLine("3. Concluir / Remover tarefa");
             Console.WriteLine("4. Sair");

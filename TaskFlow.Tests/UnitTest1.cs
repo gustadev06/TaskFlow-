@@ -11,10 +11,10 @@ public class GerenciadorDeTarefasTests
     public void AdicionarMeta_NomeValido_DeveAdicionarComSucesso()
     {
         var gerenciador = new GerenciadorDeTarefas();
-        
+
         gerenciador.Adicionar("Revisar POO");
 
-        Assert.Single(gerenciador.ListarMetas()); 
+        Assert.Single(gerenciador.ListarMetas());
     }
 
     // Teste 2
@@ -22,8 +22,8 @@ public class GerenciadorDeTarefasTests
     public void AdicionarMeta_NomeVazio_DeveGerarErro()
     {
         var gerenciador = new GerenciadorDeTarefas();
-        
-      
+
+
         Assert.Throws<ArgumentException>(() => gerenciador.Adicionar(""));
     }
 
@@ -36,7 +36,7 @@ public class GerenciadorDeTarefasTests
 
         bool resultado = gerenciador.Remover(99);
 
-        Assert.False(resultado); 
-        Assert.Single(gerenciador.ListarMetas()); 
+        Assert.False(resultado);
+        Assert.Single(gerenciador.ListarMetas());
     }
 }

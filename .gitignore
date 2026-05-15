@@ -1,0 +1,8 @@
+ # Build / publish
+bin/
+obj/
+publish/
+
+# IDE
+.vs/
+*.user

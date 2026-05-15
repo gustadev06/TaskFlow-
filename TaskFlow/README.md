@@ -1,10 +1,10 @@
 # TaskFlow - Foco na Aprovação 🎯
 
-![CI](https://github.com/[SEU_USUARIO_AQUI]/taskflow/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/gustadev06/taskflow/actions/workflows/ci.yml/badge.svg)
 **Versão:** 1.0.0
 
 ## 🚨 O Problema Real
-Estudantes universitários e candidatos a concursos públicos (como o da AgSUS) frequentemente lidam com editais densos e legislações extensas (ex: Lei 14.621, regulamentações complexas). Esse volume massivo de conteúdo gera sobrecarga mental, ansiedade e dificulta a constância nos estudos, pois o candidato não sabe por onde começar.
+Estudantes universitários e candidatos a concursos públicos frequentemente lidam com editais densos e legislações extensas (ex: Lei 14.621, regulamentações complexas). Esse volume massivo de conteúdo gera sobrecarga mental, ansiedade e dificulta a constância nos estudos, pois o candidato não sabe por onde começar.
 
 ## 💡 A Solução
 O **TaskFlow** é uma aplicação simples via interface de linha de comando (CLI) focada em micro-metas. Ele permite que o estudante fatiem grandes blocos de leitura e revisão em tarefas diárias gerenciáveis. Em vez de lidar com a carga abstrata de "estudar o edital", o estudante interage apenas com metas concretas e alcançáveis, reduzindo a fadiga de decisão.
