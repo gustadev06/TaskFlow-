@@ -1,39 +1,50 @@
-# TaskFlow - Foco na Aprovação 🎯
+# TaskFlow — Foco na Aprovação
 
-![CI](https://github.com/gustadev06/taskflow/actions/workflows/ci.yml/badge.svg)
-**Versão:** 1.0.0
+🔗 **Download da aplicação:** [Release v1.0.0](https://github.com/gustadev06/TaskFlow-/releases/tag/v1.0.0)
 
-## 🚨 O Problema Real
-Estudantes universitários e candidatos a concursos públicos frequentemente lidam com editais densos e legislações extensas (ex: Lei 14.621, regulamentações complexas). Esse volume massivo de conteúdo gera sobrecarga mental, ansiedade e dificulta a constância nos estudos, pois o candidato não sabe por onde começar.
+Organizador de estudos via linha de comando, com frase motivacional do dia integrada às APIs públicas **ZenQuotes** (frases) e **MyMemory** (tradução para português).
 
-## 💡 A Solução
-O **TaskFlow** é uma aplicação simples via interface de linha de comando (CLI) focada em micro-metas. Ele permite que o estudante fatiem grandes blocos de leitura e revisão em tarefas diárias gerenciáveis. Em vez de lidar com a carga abstrata de "estudar o edital", o estudante interage apenas com metas concretas e alcançáveis, reduzindo a fadiga de decisão.
+## Funcionalidades
 
-## 👥 Público-Alvo
-Estudantes universitários, concurseiros e pessoas que precisam organizar cronogramas de leitura densos.
+- ➕ Adicionar tarefas de estudo
+- 📋 Listar tarefas pendentes
+- ✅ Concluir / remover tarefas
+- 💬 Frase motivacional do dia em português (atualizada a cada execução)
 
-## 🚀 Funcionalidades Principais
-* **Adicionar Tarefas:** Registro rápido de metas de estudo.
-* **Listagem:** Visualização limpa e focada do que precisa ser feito.
-* **Conclusão/Remoção:** Sistema para riscar metas concluídas e limpar o fluxo de trabalho.
+## Como executar
 
-## 🛠️ Tecnologias Utilizadas
-* **Linguagem:** C# (.NET 10)
-* **Interface:** CLI (Command Line Interface)
-* **Testes Automatizados:** xUnit
-* **Integração Contínua (CI):** GitHub Actions
-* **Estilo de Código:** `dotnet format`
+### Opção 1 — Baixar o executável
+Acesse a [Release v1.0.0](https://github.com/gustadev06/TaskFlow-/releases/tag/v1.0.0), baixe o `TaskFlow.exe` e execute pelo terminal:
 
----
+```bash
+.\TaskFlow.exe
+```
 
-## 💻 Instruções de Instalação e Execução
+### Opção 2 — Executar a partir do código-fonte
 
-### Pré-requisitos
-* [.NET 10 SDK](https://dotnet.microsoft.com/download) instalado na máquina.
+```bash
+git clone https://github.com/gustadev06/TaskFlow-.git
+cd TaskFlow-
+dotnet run --project TaskFlow
+```
 
-### Como Executar o App
-1. Clone este repositório.
-2. Abra o terminal na raiz do projeto.
-3. Navegue para a pasta do código-fonte:
-   ```bash
-   cd TaskFlow
+## Tecnologias
+
+- **C# / .NET 10** — linguagem e runtime
+- **xUnit** — testes unitários e de integração
+- **GitHub Actions** — pipeline de CI (lint + build + testes)
+- **APIs públicas:**
+  - [ZenQuotes](https://zenquotes.io/) — frase motivacional do dia
+  - [MyMemory](https://mymemory.translated.net/) — tradução para PT-BR
+
+## Estrutura do projeto
+
+```
+TaskFlow Bottcamp/
+├── TaskFlow/              # Aplicação principal (CLI)
+│   ├── Models/            # Quote, TranslationResponse
+│   ├── Services/          # QuoteService
+│   └── Program.cs         # Gerenciador de tarefas + menu
+├── TaskFlow.Tests/        # Testes (xUnit)
+└── .github/workflows/     # Pipeline de CI
+```
