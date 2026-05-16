@@ -20,10 +20,10 @@ jobs:
         dotnet-version: '10.0.x'
 
     - name: Verificar Linting (Estilo do Código)
-      run: dotnet format TaskFlow/TaskFlow.csproj --verify-no-changes
+      run: dotnet format TaskFlow.slnx --verify-no-changes
 
     - name: Compilar o Projeto
-      run: dotnet build TaskFlow/TaskFlow.csproj
+      run: dotnet build TaskFlow.slnx
 
     - name: Executar Testes Automatizados
-      run: dotnet test TaskFlow.Tests/TaskFlow.Tests.csproj
+      run: dotnet test TaskFlow.slnx
