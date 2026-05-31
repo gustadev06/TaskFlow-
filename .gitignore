@@ -1,4 +1,4 @@
- # Build / publish
+# Build / publish
 bin/
 obj/
 publish/
@@ -6,3 +6,7 @@ publish/
 # IDE
 .vs/
 *.user
+*.lscache
+
+# Segredos locais (NUNCA commitar a connection string real)
+appsettings.Development.json

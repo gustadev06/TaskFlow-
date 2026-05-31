@@ -1,8 +1,9 @@
 using System.Net.Http.Json;
-using TaskFlow.Models;
+using TaskFlow.Api.Models;
 
-namespace TaskFlow.Services;
+namespace TaskFlow.Api.Services;
 
+// Consome duas APIs externas: ZenQuotes (frase do dia) + MyMemory (traducao).
 public class QuoteService
 {
     private readonly HttpClient _http;
@@ -16,27 +17,24 @@ public class QuoteService
     {
         try
         {
-            // 1. Busca a frase do dia em inglês na ZenQuotes
             var url = "https://zenquotes.io/api/today";
             var quotes = await _http.GetFromJsonAsync<List<Quote>>(url);
 
             if (quotes != null && quotes.Count > 0)
             {
                 var quote = quotes[0];
-
-                // 2. Traduz a frase pro português usando a MyMemory
                 quote.Texto = await TraduzirAsync(quote.Texto);
                 return quote;
             }
         }
         catch
         {
-            // Cai no fallback se a ZenQuotes falhar
+            // Cai no fallback se a ZenQuotes falhar.
         }
 
         return new Quote
         {
-            Texto = "A disciplina é a ponte entre metas e conquistas.",
+            Texto = "A disciplina e a ponte entre metas e conquistas.",
             Autor = "Jim Rohn"
         };
     }
@@ -52,11 +50,13 @@ public class QuoteService
             var traducao = resposta?.ResponseData?.TranslatedText;
 
             if (!string.IsNullOrWhiteSpace(traducao))
+            {
                 return traducao;
+            }
         }
         catch
         {
-            // Se a tradução falhar, devolve o texto original em inglês
+            // Se a traducao falhar, devolve o texto original.
         }
 
         return textoEmIngles;

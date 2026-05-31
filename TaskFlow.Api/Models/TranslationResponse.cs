@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace TaskFlow.Models;
+namespace TaskFlow.Api.Models;
 
 public class TranslationResponse
 {
