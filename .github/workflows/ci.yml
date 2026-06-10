@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Baixar o código do repositório
+    - name: Baixar o codigo do repositorio
       uses: actions/checkout@v4
 
     - name: Configurar o .NET 10
@@ -19,11 +19,14 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
-    - name: Verificar Linting (Estilo do Código)
+    - name: Restaurar dependencias
+      run: dotnet restore TaskFlow.slnx
+
+    - name: Verificar Linting (Estilo do Codigo)
       run: dotnet format TaskFlow.slnx --verify-no-changes
 
     - name: Compilar o Projeto
-      run: dotnet build TaskFlow.slnx
+      run: dotnet build TaskFlow.slnx --no-restore --configuration Release
 
     - name: Executar Testes Automatizados
-      run: dotnet test TaskFlow.slnx
+      run: dotnet test TaskFlow.slnx --no-build --configuration Release --verbosity normal
