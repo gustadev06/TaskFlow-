@@ -28,38 +28,38 @@ public class TarefaService : ITarefaService
     }
 
     public async Task<Tarefa> CriarAsync(string titulo, string prioridade)
-{
-    if (string.IsNullOrWhiteSpace(titulo))
-        throw new ArgumentException("A tarefa nao pode ser vazia.");
-
-    var tarefa = new Tarefa
     {
-        Titulo = titulo.Trim(),
-        Prioridade = string.IsNullOrWhiteSpace(prioridade) ? "Média" : prioridade, // Mapeia o campo
-        Concluida = false,
-        CriadaEm = DateTime.UtcNow
-    };
+        if (string.IsNullOrWhiteSpace(titulo))
+            throw new ArgumentException("A tarefa nao pode ser vazia.");
 
-    _db.Tarefas.Add(tarefa);
-    await _db.SaveChangesAsync();
-    return tarefa;
-}
+        var tarefa = new Tarefa
+        {
+            Titulo = titulo.Trim(),
+            Prioridade = string.IsNullOrWhiteSpace(prioridade) ? "Média" : prioridade, // Mapeia o campo
+            Concluida = false,
+            CriadaEm = DateTime.UtcNow
+        };
 
-public async Task<Tarefa?> AtualizarAsync(int id, string titulo, string prioridade, bool concluida)
-{
-    var tarefa = await _db.Tarefas.FindAsync(id);
-    if (tarefa is null) return null;
+        _db.Tarefas.Add(tarefa);
+        await _db.SaveChangesAsync();
+        return tarefa;
+    }
 
-    if (!string.IsNullOrWhiteSpace(titulo))
-        tarefa.Titulo = titulo.Trim();
+    public async Task<Tarefa?> AtualizarAsync(int id, string titulo, string prioridade, bool concluida)
+    {
+        var tarefa = await _db.Tarefas.FindAsync(id);
+        if (tarefa is null) return null;
 
-    if (!string.IsNullOrWhiteSpace(prioridade))
-        tarefa.Prioridade = prioridade; // Atualiza o campo
+        if (!string.IsNullOrWhiteSpace(titulo))
+            tarefa.Titulo = titulo.Trim();
 
-    tarefa.Concluida = concluida;
-    await _db.SaveChangesAsync();
-    return tarefa;
-}
+        if (!string.IsNullOrWhiteSpace(prioridade))
+            tarefa.Prioridade = prioridade; // Atualiza o campo
+
+        tarefa.Concluida = concluida;
+        await _db.SaveChangesAsync();
+        return tarefa;
+    }
 
     public async Task<Tarefa?> ConcluirAsync(int id)
     {

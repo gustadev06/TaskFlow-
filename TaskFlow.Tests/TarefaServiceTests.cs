@@ -43,7 +43,7 @@ public class TarefaServiceTests
     {
         using var db = CriarContextoEmMemoria();
         var service = new TarefaService(db);
-        
+
         // CORRIGIDO: Passando a prioridade
         var tarefa = await service.CriarAsync("Ler Constituicao", "Alta");
 
@@ -58,7 +58,7 @@ public class TarefaServiceTests
     {
         using var db = CriarContextoEmMemoria();
         var service = new TarefaService(db);
-        
+
         // CORRIGIDO: Passando a prioridade
         await service.CriarAsync("Tarefa qualquer", "Baixa");
 
@@ -73,7 +73,7 @@ public class TarefaServiceTests
     {
         using var db = CriarContextoEmMemoria();
         var service = new TarefaService(db);
-        
+
         // CORRIGIDO: Passando a prioridade
         var tarefa = await service.CriarAsync("Titulo antigo", "Média");
 

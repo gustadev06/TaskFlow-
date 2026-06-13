@@ -56,7 +56,7 @@ tarefas.MapPost("/", async (CriarTarefaDto dto, ITarefaService svc) =>
     try
     {
         // CORRIGIDO: Agora estamos passando o dto.Prioridade para o serviço
-        var tarefa = await svc.CriarAsync(dto.Titulo, dto.Prioridade); 
+        var tarefa = await svc.CriarAsync(dto.Titulo, dto.Prioridade);
         return Results.Created($"/api/tarefas/{tarefa.Id}", tarefa);
     }
     catch (ArgumentException ex)
