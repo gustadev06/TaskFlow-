@@ -21,7 +21,8 @@ public class TarefaServiceTests
         using var db = CriarContextoEmMemoria();
         var service = new TarefaService(db);
 
-        var tarefa = await service.CriarAsync("Revisar POO");
+        // CORRIGIDO: Passando a prioridade
+        var tarefa = await service.CriarAsync("Revisar POO", "Alta");
 
         Assert.True(tarefa.Id > 0);
         Assert.Single(await service.ListarAsync());
@@ -33,7 +34,8 @@ public class TarefaServiceTests
         using var db = CriarContextoEmMemoria();
         var service = new TarefaService(db);
 
-        await Assert.ThrowsAsync<ArgumentException>(() => service.CriarAsync(""));
+        // CORRIGIDO: Passando a prioridade
+        await Assert.ThrowsAsync<ArgumentException>(() => service.CriarAsync("", "Média"));
     }
 
     [Fact]
@@ -41,7 +43,9 @@ public class TarefaServiceTests
     {
         using var db = CriarContextoEmMemoria();
         var service = new TarefaService(db);
-        var tarefa = await service.CriarAsync("Ler Constituicao");
+        
+        // CORRIGIDO: Passando a prioridade
+        var tarefa = await service.CriarAsync("Ler Constituicao", "Alta");
 
         var atualizada = await service.ConcluirAsync(tarefa.Id);
 
@@ -54,7 +58,9 @@ public class TarefaServiceTests
     {
         using var db = CriarContextoEmMemoria();
         var service = new TarefaService(db);
-        await service.CriarAsync("Tarefa qualquer");
+        
+        // CORRIGIDO: Passando a prioridade
+        await service.CriarAsync("Tarefa qualquer", "Baixa");
 
         var resultado = await service.RemoverAsync(999);
 
@@ -67,9 +73,12 @@ public class TarefaServiceTests
     {
         using var db = CriarContextoEmMemoria();
         var service = new TarefaService(db);
-        var tarefa = await service.CriarAsync("Titulo antigo");
+        
+        // CORRIGIDO: Passando a prioridade
+        var tarefa = await service.CriarAsync("Titulo antigo", "Média");
 
-        var atualizada = await service.AtualizarAsync(tarefa.Id, "Titulo novo", true);
+        // CORRIGIDO: Passando id, titulo, prioridade e status de concluida
+        var atualizada = await service.AtualizarAsync(tarefa.Id, "Titulo novo", "Alta", true);
 
         Assert.NotNull(atualizada);
         Assert.Equal("Titulo novo", atualizada!.Titulo);

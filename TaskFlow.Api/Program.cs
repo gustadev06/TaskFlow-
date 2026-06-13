@@ -55,7 +55,8 @@ tarefas.MapPost("/", async (CriarTarefaDto dto, ITarefaService svc) =>
 {
     try
     {
-        var tarefa = await svc.CriarAsync(dto.Titulo);
+        // CORRIGIDO: Agora estamos passando o dto.Prioridade para o serviço
+        var tarefa = await svc.CriarAsync(dto.Titulo, dto.Prioridade); 
         return Results.Created($"/api/tarefas/{tarefa.Id}", tarefa);
     }
     catch (ArgumentException ex)
@@ -66,7 +67,8 @@ tarefas.MapPost("/", async (CriarTarefaDto dto, ITarefaService svc) =>
 
 tarefas.MapPut("/{id:int}", async (int id, AtualizarTarefaDto dto, ITarefaService svc) =>
 {
-    var tarefa = await svc.AtualizarAsync(id, dto.Titulo, dto.Concluida);
+    // CORRIGIDO: Passando id, titulo, prioridade e status de concluida na ordem certa
+    var tarefa = await svc.AtualizarAsync(id, dto.Titulo, dto.Prioridade, dto.Concluida);
     return tarefa is null ? Results.NotFound() : Results.Ok(tarefa);
 });
 
@@ -92,5 +94,5 @@ app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 app.Run();
 
 // DTOs de entrada da API.
-public record CriarTarefaDto(string Titulo);
-public record AtualizarTarefaDto(string Titulo, bool Concluida);
+public record CriarTarefaDto(string Titulo, string Prioridade);
+public record AtualizarTarefaDto(string Titulo, string Prioridade, bool Concluida);
