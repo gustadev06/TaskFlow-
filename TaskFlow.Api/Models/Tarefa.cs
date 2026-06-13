@@ -7,4 +7,5 @@ public class Tarefa
     public string Titulo { get; set; } = string.Empty;
     public bool Concluida { get; set; }
     public DateTime CriadaEm { get; set; } = DateTime.UtcNow;
+    public string Prioridade { get; set; } = "Média";
 }

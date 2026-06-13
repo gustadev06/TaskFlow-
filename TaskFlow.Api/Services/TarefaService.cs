@@ -27,16 +27,15 @@ public class TarefaService : ITarefaService
         return await _db.Tarefas.FindAsync(id);
     }
 
-    public async Task<Tarefa> CriarAsync(string titulo)
+    public async Task<Tarefa> CriarAsync(string titulo, string prioridade)
     {
         if (string.IsNullOrWhiteSpace(titulo))
-        {
             throw new ArgumentException("A tarefa nao pode ser vazia.");
-        }
 
         var tarefa = new Tarefa
         {
             Titulo = titulo.Trim(),
+            Prioridade = string.IsNullOrWhiteSpace(prioridade) ? "Média" : prioridade, // Mapeia o campo
             Concluida = false,
             CriadaEm = DateTime.UtcNow
         };
@@ -46,18 +45,16 @@ public class TarefaService : ITarefaService
         return tarefa;
     }
 
-    public async Task<Tarefa?> AtualizarAsync(int id, string titulo, bool concluida)
+    public async Task<Tarefa?> AtualizarAsync(int id, string titulo, string prioridade, bool concluida)
     {
         var tarefa = await _db.Tarefas.FindAsync(id);
-        if (tarefa is null)
-        {
-            return null;
-        }
+        if (tarefa is null) return null;
 
         if (!string.IsNullOrWhiteSpace(titulo))
-        {
             tarefa.Titulo = titulo.Trim();
-        }
+
+        if (!string.IsNullOrWhiteSpace(prioridade))
+            tarefa.Prioridade = prioridade; // Atualiza o campo
 
         tarefa.Concluida = concluida;
         await _db.SaveChangesAsync();

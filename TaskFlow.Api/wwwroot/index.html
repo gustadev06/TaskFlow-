@@ -90,6 +90,11 @@
 
     <div class="add">
       <input type="text" id="nova" placeholder="Nova meta de estudo..." />
+      <select id="prioridade" style="padding: 10px; border-radius: 10px; background: var(--card); color: var(--txt); border: 1px solid var(--line);">
+        <option value="Alta">Alta</option>
+        <option value="Média" selected>Média</option>
+        <option value="Baixa">Baixa</option>
+      </select>
       <button onclick="adicionar()">Adicionar</button>
     </div>
 
@@ -116,9 +121,18 @@
       for (const t of tarefas) {
         const li = document.createElement("li");
         if (t.concluida) li.classList.add("feita");
+        
+        // Define a cor consoante a prioridade
+        let corPrio = t.prioridade === 'Alta' ? '#ff6b6b' : (t.prioridade === 'Baixa' ? '#5b8cff' : '#cdd3df');
+
         li.innerHTML = `
           <button class="chk" onclick="concluir(${t.id})">${t.concluida ? "✓" : ""}</button>
-          <span class="titulo">${escapar(t.titulo)}</span>
+          <span class="titulo">
+            ${escapar(t.titulo)}
+            <span style="font-size: 0.75rem; background: var(--bg); padding: 2px 6px; border-radius: 4px; color: ${corPrio}; margin-left: 8px; border: 1px solid var(--line);">
+                ${escapar(t.prioridade || 'Média')}
+            </span>
+          </span>
           <button class="del" onclick="remover(${t.id})">×</button>`;
         ul.appendChild(li);
       }
@@ -126,13 +140,18 @@
 
     async function adicionar() {
       const input = document.getElementById("nova");
+      const prioInput = document.getElementById("prioridade"); // Lê o valor do select
       const titulo = input.value.trim();
+      const prioridade = prioInput.value;
+
       if (!titulo) return;
+      
       await fetch(API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ titulo })
+        body: JSON.stringify({ titulo, prioridade }) // Envia Título e Prioridade para a tua API
       });
+      
       input.value = "";
       carregar();
     }
