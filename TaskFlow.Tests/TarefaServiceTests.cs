@@ -84,4 +84,37 @@ public class TarefaServiceTests
         Assert.Equal("Titulo novo", atualizada!.Titulo);
         Assert.True(atualizada.Concluida);
     }
+    [Fact]
+    public async Task ObterEstatisticasAsync_DeveContarTotalConcluidasEPendentes()
+    {
+        using var db = CriarContextoEmMemoria();
+        var service = new TarefaService(db);
+
+        var t1 = await service.CriarAsync("Estudar EF Core", "Alta");
+        await service.CriarAsync("Revisar PR", "Média");
+        await service.CriarAsync("Documentar README", "Baixa");
+        await service.ConcluirAsync(t1.Id);
+
+        var stats = await service.ObterEstatisticasAsync();
+
+        Assert.Equal(3, stats.Total);
+        Assert.Equal(1, stats.Concluidas);
+        Assert.Equal(2, stats.Pendentes);
+    }
+
+    [Fact]
+    public async Task ObterEstatisticasAsync_DeveAgruparPorPrioridade()
+    {
+        using var db = CriarContextoEmMemoria();
+        var service = new TarefaService(db);
+
+        await service.CriarAsync("Tarefa 1", "Alta");
+        await service.CriarAsync("Tarefa 2", "Alta");
+        await service.CriarAsync("Tarefa 3", "Baixa");
+
+        var stats = await service.ObterEstatisticasAsync();
+
+        Assert.Equal(2, stats.PorPrioridade["Alta"]);
+        Assert.Equal(1, stats.PorPrioridade["Baixa"]);
+    }
 }
