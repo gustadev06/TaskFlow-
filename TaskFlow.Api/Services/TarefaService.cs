@@ -4,7 +4,7 @@ using TaskFlow.Api.Models;
 
 namespace TaskFlow.Api.Services;
 
-// Regras de negocio das tarefas. Toda a persistencia passa por aqui (testavel).
+
 public class TarefaService : ITarefaService
 {
     private readonly AppDbContext _db;
@@ -22,6 +22,25 @@ public class TarefaService : ITarefaService
             .ToListAsync();
     }
 
+    public async Task<EstatisticasTarefas> ObterEstatisticasAsync()
+    {
+        var total = await _db.Tarefas.CountAsync();
+        var concluidas = await _db.Tarefas.CountAsync(t => t.Concluida);
+
+        var porPrioridade = await _db.Tarefas
+            .GroupBy(t => t.Prioridade)
+            .Select(g => new { Prioridade = g.Key, Quantidade = g.Count() })
+            .ToDictionaryAsync(x => x.Prioridade, x => x.Quantidade);
+
+        return new EstatisticasTarefas
+        {
+            Total = total,
+            Concluidas = concluidas,
+            Pendentes = total - concluidas,
+            PorPrioridade = porPrioridade
+        };
+    }
+
     public async Task<Tarefa?> ObterAsync(int id)
     {
         return await _db.Tarefas.FindAsync(id);
@@ -35,7 +54,7 @@ public class TarefaService : ITarefaService
         var tarefa = new Tarefa
         {
             Titulo = titulo.Trim(),
-            Prioridade = string.IsNullOrWhiteSpace(prioridade) ? "Média" : prioridade, // Mapeia o campo
+            Prioridade = string.IsNullOrWhiteSpace(prioridade) ? "Média" : prioridade,
             Concluida = false,
             CriadaEm = DateTime.UtcNow
         };
@@ -54,7 +73,7 @@ public class TarefaService : ITarefaService
             tarefa.Titulo = titulo.Trim();
 
         if (!string.IsNullOrWhiteSpace(prioridade))
-            tarefa.Prioridade = prioridade; // Atualiza o campo
+            tarefa.Prioridade = prioridade;
 
         tarefa.Concluida = concluida;
         await _db.SaveChangesAsync();

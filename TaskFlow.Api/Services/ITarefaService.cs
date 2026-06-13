@@ -10,4 +10,5 @@ public interface ITarefaService
     Task<Tarefa?> AtualizarAsync(int id, string titulo, string prioridade, bool concluida);
     Task<Tarefa?> ConcluirAsync(int id);
     Task<bool> RemoverAsync(int id);
+    Task<EstatisticasTarefas> ObterEstatisticasAsync();
 }
