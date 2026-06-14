@@ -4,7 +4,7 @@ using TaskFlow.Api.Models;
 
 namespace TaskFlow.Api.Services;
 
-// Regras de negocio das tarefas. Toda a persistencia passa por aqui (testavel).
+
 public class TarefaService : ITarefaService
 {
     private readonly AppDbContext _db;
@@ -22,21 +22,39 @@ public class TarefaService : ITarefaService
             .ToListAsync();
     }
 
+    public async Task<EstatisticasTarefas> ObterEstatisticasAsync()
+    {
+        var total = await _db.Tarefas.CountAsync();
+        var concluidas = await _db.Tarefas.CountAsync(t => t.Concluida);
+
+        var porPrioridade = await _db.Tarefas
+            .GroupBy(t => t.Prioridade)
+            .Select(g => new { Prioridade = g.Key, Quantidade = g.Count() })
+            .ToDictionaryAsync(x => x.Prioridade, x => x.Quantidade);
+
+        return new EstatisticasTarefas
+        {
+            Total = total,
+            Concluidas = concluidas,
+            Pendentes = total - concluidas,
+            PorPrioridade = porPrioridade
+        };
+    }
+
     public async Task<Tarefa?> ObterAsync(int id)
     {
         return await _db.Tarefas.FindAsync(id);
     }
 
-    public async Task<Tarefa> CriarAsync(string titulo)
+    public async Task<Tarefa> CriarAsync(string titulo, string prioridade)
     {
         if (string.IsNullOrWhiteSpace(titulo))
-        {
             throw new ArgumentException("A tarefa nao pode ser vazia.");
-        }
 
         var tarefa = new Tarefa
         {
             Titulo = titulo.Trim(),
+            Prioridade = string.IsNullOrWhiteSpace(prioridade) ? "Média" : prioridade,
             Concluida = false,
             CriadaEm = DateTime.UtcNow
         };
@@ -46,18 +64,16 @@ public class TarefaService : ITarefaService
         return tarefa;
     }
 
-    public async Task<Tarefa?> AtualizarAsync(int id, string titulo, bool concluida)
+    public async Task<Tarefa?> AtualizarAsync(int id, string titulo, string prioridade, bool concluida)
     {
         var tarefa = await _db.Tarefas.FindAsync(id);
-        if (tarefa is null)
-        {
-            return null;
-        }
+        if (tarefa is null) return null;
 
         if (!string.IsNullOrWhiteSpace(titulo))
-        {
             tarefa.Titulo = titulo.Trim();
-        }
+
+        if (!string.IsNullOrWhiteSpace(prioridade))
+            tarefa.Prioridade = prioridade;
 
         tarefa.Concluida = concluida;
         await _db.SaveChangesAsync();

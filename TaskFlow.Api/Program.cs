@@ -4,14 +4,14 @@ using TaskFlow.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Render / Railway injetam a porta via variavel de ambiente PORT.
+
 var port = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrWhiteSpace(port))
 {
     builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 }
 
-// Banco de dados (Supabase / PostgreSQL).
+
 var connectionString = DbConnectionHelper.Resolver(builder.Configuration);
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
@@ -26,7 +26,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Cria a tabela "Tarefas" no banco caso ainda nao exista.
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -39,11 +39,14 @@ app.UseCors();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// ---------- Endpoints de Tarefas (CRUD no banco) ----------
+
 var tarefas = app.MapGroup("/api/tarefas");
 
 tarefas.MapGet("/", async (ITarefaService svc) =>
     Results.Ok(await svc.ListarAsync()));
+
+tarefas.MapGet("/estatisticas", async (ITarefaService svc) =>
+    Results.Ok(await svc.ObterEstatisticasAsync()));
 
 tarefas.MapGet("/{id:int}", async (int id, ITarefaService svc) =>
 {
@@ -55,7 +58,8 @@ tarefas.MapPost("/", async (CriarTarefaDto dto, ITarefaService svc) =>
 {
     try
     {
-        var tarefa = await svc.CriarAsync(dto.Titulo);
+
+        var tarefa = await svc.CriarAsync(dto.Titulo, dto.Prioridade);
         return Results.Created($"/api/tarefas/{tarefa.Id}", tarefa);
     }
     catch (ArgumentException ex)
@@ -66,7 +70,8 @@ tarefas.MapPost("/", async (CriarTarefaDto dto, ITarefaService svc) =>
 
 tarefas.MapPut("/{id:int}", async (int id, AtualizarTarefaDto dto, ITarefaService svc) =>
 {
-    var tarefa = await svc.AtualizarAsync(id, dto.Titulo, dto.Concluida);
+
+    var tarefa = await svc.AtualizarAsync(id, dto.Titulo, dto.Prioridade, dto.Concluida);
     return tarefa is null ? Results.NotFound() : Results.Ok(tarefa);
 });
 
@@ -82,15 +87,15 @@ tarefas.MapDelete("/{id:int}", async (int id, ITarefaService svc) =>
     return removida ? Results.NoContent() : Results.NotFound();
 });
 
-// ---------- API externa: frase motivacional do dia ----------
+
 app.MapGet("/api/frase-do-dia", async (QuoteService svc) =>
     Results.Ok(await svc.ObterFraseDoDiaAsync()));
 
-// ---------- Health check ----------
+
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 app.Run();
 
-// DTOs de entrada da API.
-public record CriarTarefaDto(string Titulo);
-public record AtualizarTarefaDto(string Titulo, bool Concluida);
+
+public record CriarTarefaDto(string Titulo, string Prioridade);
+public record AtualizarTarefaDto(string Titulo, string Prioridade, bool Concluida);
