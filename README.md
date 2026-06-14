@@ -15,7 +15,7 @@
 | _preencher_ (Gustavo — dono do repo) | _preencher_ | [@gustadev06](https://github.com/gustadev06) |
 | _preencher_ | _preencher_ | [@lucas-kauanogb](https://github.com/lucas-kauanogb) |
 | _preencher_ | _preencher_ | [@Yan-neri](https://github.com/Yan-neri) |
-| _preencher_ | _preencher_ | _preencher_ |
+| _preencher_ | _preencher_ | [@prataVictor1601](https://github.com/prataVictor1601) |
 | _preencher_ | _preencher_ | _preencher_ |
  
 <!-- Preencha os nomes completos e matrículas. Ajuste o número de linhas conforme o tamanho real do grupo (até 5). -->
