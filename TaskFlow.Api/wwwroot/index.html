@@ -166,16 +166,16 @@
       carregar();
     }
 
-    async function carregarFrase() {
-      try {
-        const res = await fetch("/api/frase-do-dia");
-        const q = await res.json();
-        document.getElementById("frase").innerHTML =
-          `"${escapar(q.texto)}"<small>— ${escapar(q.autor)}</small>`;
-      } catch {
-        document.getElementById("frase").textContent = "A disciplina é a ponte entre metas e conquistas.";
-      }
-    }
+      async function carregarFrase() {
+     try {
+     const res = await fetch("/api/frase-do-dia");
+     const q = await res.json();
+     document.getElementById("frase").innerHTML =
+      `"${escapar(q.q)}"<small>— ${escapar(q.a)}</small>`;
+  } catch {
+    document.getElementById("frase").textContent = "A disciplina é a ponte entre metas e conquistas.";
+  }
+}
 
     function escapar(s) {
       const d = document.createElement("div");
